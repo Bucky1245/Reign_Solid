@@ -95,37 +95,6 @@ public class Personnage {
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
-
-    public Jauge getJaugeClerge() {
-        return jaugeClerge;
-    }
-
-    public void setJaugeClerge(Jauge jaugeClerge) {
-        this.jaugeClerge = jaugeClerge;
-    }
-
-    public Jauge getJaugePeuple() {
-        return jaugePeuple;
-    }
-
-    public void setJaugePeuple(Jauge jaugePeuple) {
-        this.jaugePeuple = jaugePeuple;
-    }
-
-    public Jauge getJaugeArmee() {
-        return jaugeArmee;
-    }
-
-    public void setJaugeArmee(Jauge jaugeArmee) {
-        this.jaugeArmee = jaugeArmee;
-    }
-
-    public Jauge getJaugeFinance() {
-        return jaugeFinance;
-    }
-
-    public void setJaugeFinance(Jauge jaugeFinance) {
-        this.jaugeFinance = jaugeFinance;
-    }
+   
     
 }
