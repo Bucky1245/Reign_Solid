@@ -32,7 +32,7 @@ public class Personnage {
         return genre;
     }
 
-    public void setGenre(Genre genre) {
+    public void  setGenre(Genre genre) {
         this.genre = genre;
     }
 }
