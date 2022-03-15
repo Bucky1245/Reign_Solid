@@ -38,4 +38,12 @@ public class Personnage {
     public void  setGenre(Genre genre) {
         this.genre = genre;
     }
+
+    public Map<TypeJauge, Jauge> getJauges() {
+        return jauges;
+    }
+
+    public void setJauges(Map<TypeJauge, Jauge> jauges) {
+        this.jauges = jauges;
+    }
 }
