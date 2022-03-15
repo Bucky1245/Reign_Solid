@@ -43,6 +43,9 @@ public class Jauge {
     public void setType(TypeJauge type) {
         this.type = type;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Jauge [nom=" + nom + ", type=" + type + ", valeur=" + valeur + "]";
+    }
 }
