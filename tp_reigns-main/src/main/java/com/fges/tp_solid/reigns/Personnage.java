@@ -5,7 +5,7 @@
  */
 package com.fges.tp_solid.reigns;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,9 +15,9 @@ public class Personnage {
     
     protected String nom;
     protected Genre genre;
-    List<Jauge> jauges;
+    Map<TypeJauge,Jauge> jauges;
     
-    public Personnage(String nom, Genre genre,List<Jauge> jauges){
+    public Personnage(String nom, Genre genre, Map<TypeJauge, Jauge> jauges){
         this.nom = nom;
         this.genre = genre;
         this.jauges = jauges;
