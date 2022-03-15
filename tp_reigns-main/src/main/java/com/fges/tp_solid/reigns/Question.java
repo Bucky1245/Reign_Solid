@@ -5,6 +5,7 @@
  */
 package com.fges.tp_solid.reigns;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -20,8 +21,8 @@ public class Question {
     protected String question;
     protected String effetGauche;
     protected String effetDroite;
-    protected Map<TypeJauge,Integer> effetJaugeGauche;
-    protected Map<TypeJauge,Integer> effetJaugeDroite;
+    protected Effets effetJaugeGauche;
+    protected Effets effetJaugeDroite;
     
     public Question(String nomPersonnage, 
                     String question,
@@ -31,8 +32,8 @@ public class Question {
         this.question = question;
         this.effetGauche = effetGauche;
         this.effetDroite = effetDroite;
-        this.effetJaugeGauche = new TreeMap<>();
-        this.effetJaugeDroite = new TreeMap<>();
+        this.effetJaugeGauche = new Effets();
+        this.effetJaugeDroite = new Effets();
     }
     
     public void afficheQuestion(){
@@ -42,70 +43,10 @@ public class Question {
                 + ",D: "+effetDroite
                 + "]";
         System.out.println(result);
-        System.out.println("Effet G:"+afficheEffets(effetJaugeGauche));
-        System.out.println("Effet D:"+afficheEffets(effetJaugeDroite));
+        System.out.println("Effet G:"+this.effetJaugeGauche.afficheEffets());
+        System.out.println("Effet D:"+this.effetJaugeDroite.afficheEffets());
         System.out.flush();
         
-    }
-    /**
-     * exemple : jauge armée : -5 ; jauge peuple : +5
-     * @return 
-     */
-    private String afficheEffets(Map<TypeJauge,Integer> effets){
-        String result = "";
-        for(Entry<TypeJauge,Integer> effet : effets.entrySet()){
-            result += "; jauge "+effet.getKey().toString()+" : ";
-            if(effet.getValue()>0)
-                result += "+";
-            result += effet.getValue();
-        }
-        return result.substring(1);
-    }
-    
-    public void appliqueEffetsGauche(Personnage personnage){
-        this.appliqueEffets(effetJaugeGauche, personnage);
-    }
-    
-    public void appliqueEffetsDroite(Personnage personnage){
-        this.appliqueEffets(effetJaugeDroite, personnage);
-    }
-    
-    private void appliqueEffets(Map<TypeJauge,Integer> effets, 
-                                Personnage personnage){
-        for(Entry<TypeJauge,Integer> effet : effets.entrySet()){
-            switch(effet.getKey()){
-                    case ARMEE:
-                        personnage.getJauges().get(TypeJauge.ARMEE).setValeur(
-                                personnage.getJauges().get(TypeJauge.ARMEE).getValeur()
-                                        +effet.getValue());
-                        break;
-                    case CLERGE:
-                        personnage.getJauges().get(TypeJauge.CLERGE).setValeur(
-                                personnage.getJauges().get(TypeJauge.CLERGE).getValeur()
-                                        +effet.getValue());
-                        break;
-                    case FINANCE:
-                        personnage.getJauges().get(TypeJauge.FINANCE).setValeur(
-                                personnage.getJauges().get(TypeJauge.FINANCE).getValeur()
-                                        +effet.getValue());
-                        break;
-                    case PEUPLE:
-                        personnage.getJauges().get(TypeJauge.PEUPLE).setValeur(
-                                personnage.getJauges().get(TypeJauge.PEUPLE).getValeur()
-                                        +effet.getValue());
-                        break;
-            }
-        }
-    }
-    
-    public void ajouteEffetGauche(TypeJauge jauge,
-                                   int valeur){
-        effetJaugeGauche.put(jauge,valeur);
-    }
-    
-    public void ajouteEffetDroite(TypeJauge jauge,
-                                   int valeur){
-        effetJaugeDroite.put(jauge,valeur);
     }
 
     public String getNomPersonnage() {
@@ -124,20 +65,20 @@ public class Question {
         this.question = question;
     }
 
-    public String getEffetGauche() {
-        return effetGauche;
+    public Effets getEffetJaugeGauche() {
+        return effetJaugeGauche;
     }
 
-    public void setEffetGauche(String effetGauche) {
-        this.effetGauche = effetGauche;
+    public void setEffetJaugeGauche(Effets effetJaugeGauche) {
+        this.effetJaugeGauche = effetJaugeGauche;
     }
 
-    public String getEffetDroite() {
-        return effetDroite;
+    public Effets getEffetJaugeDroite() {
+        return effetJaugeDroite;
     }
 
-    public void setEffetDroite(String effetDroite) {
-        this.effetDroite = effetDroite;
+    public void setEffetJaugeDroite(Effets effetJaugeDroite) {
+        this.effetJaugeDroite = effetJaugeDroite;
     }
     
     
