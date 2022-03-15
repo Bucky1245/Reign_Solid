@@ -5,6 +5,7 @@
  */
 package com.fges.tp_solid.reigns;
 
+import java.util.List;
 
 /**
  *
@@ -14,10 +15,12 @@ public class Personnage {
     
     protected String nom;
     protected Genre genre;
+    List<Jauge> jauges;
     
-    public Personnage(String nom, Genre genre){
+    public Personnage(String nom, Genre genre,List<Jauge> jauges){
         this.nom = nom;
         this.genre = genre;
+        this.jauges = jauges;
     }
 
     public String getNom() {
