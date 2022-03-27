@@ -9,10 +9,11 @@ import static com.fges.tp_solid.reigns.Genre.REINE;
 import static com.fges.tp_solid.reigns.Genre.ROI;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 /**
  *
@@ -148,11 +149,65 @@ public class Jeu {
         question5.getEffetJaugeDroite().ajouteEffet(TypeJauge.FINANCE, +1);
         question5.getEffetJaugeDroite().ajouteEffet(TypeJauge.PEUPLE, -3);
         questions.add(question5);
+        QuestionWithConditions question6 = new QuestionWithConditions("Main du roi", "Les caisses sont vides...", "Augmenter les taxes", "Emprunter");
+        question6.getEffetJaugeGauche().ajouteEffet(TypeJauge.FINANCE, +10);
+        question6.getEffetJaugeGauche().ajouteEffet(TypeJauge.PEUPLE, -5);
+        question6.getEffetJaugeDroite().ajouteEffet(TypeJauge.FINANCE, +7);
+        question6.getEffetJaugeDroite().ajouteEffet(TypeJauge.PEUPLE, -3);
+        question6.getConditions().add(new Condition(TypeJauge.FINANCE, ">", 10));
+        questions.add(question6);
+        QuestionWithConditions question7 = new QuestionWithConditions("Prêtre", "J'aimerai qu'on nous considère en tant que tel", "Construire un monastère", "Ecouter sans rien faire");
+        question7.getEffetJaugeGauche().ajouteEffet(TypeJauge.CLERGE, +5);
+        question7.getEffetJaugeGauche().ajouteEffet(TypeJauge.FINANCE, -5);
+        question7.getEffetJaugeDroite().ajouteEffet(TypeJauge.CLERGE, -5);
+        question7.getConditions().add(new Condition(TypeJauge.CLERGE, "<", 10));
+        question7.getConditions().add(new Condition(TypeJauge.FINANCE, ">", 30));
+        questions.add(question7);
     }
 
     private static Question getQuestionAleatoire() {
+        List<Question> questionsAleatoires = new ArrayList<>();
         int numQuestion = (int) (Math.random() * questions.size());
-        return questions.get(numQuestion);
+        for(Question question : questions)
+        {
+            if(question instanceof QuestionWithConditions)
+            {
+                Map<TypeJauge, Jauge> jauges = personnage.getJauges();
+                boolean isOk = false;
+                for(Condition condition : ((QuestionWithConditions) question).getConditions())
+                {
+                    if(">".equals(condition.getSigne()))
+                    {
+                        if(condition.getScore() < jauges.get(condition.getJauge()).getValeur())
+                        {
+                            isOk = true;
+                        }
+                        else
+                        {
+                            isOk = false;
+                        }
+                    }
+                    else
+                    {
+                        if(condition.getScore() > jauges.get(condition.getJauge()).getValeur())
+                        {
+                            isOk = true;
+                        }
+                        else
+                        {
+                            isOk = false;
+                        }
+                    }
+                }
+                if(isOk)
+                {
+                    questionsAleatoires.add(question);
+                }
+            }
+            else
+                questionsAleatoires.add(question);
+        }
+        return questionsAleatoires.get(numQuestion);
     }
 
     public static boolean finDuJeu(){
