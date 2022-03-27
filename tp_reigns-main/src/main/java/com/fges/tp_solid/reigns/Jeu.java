@@ -154,7 +154,7 @@ public class Jeu {
         question6.getEffetJaugeGauche().ajouteEffet(TypeJauge.PEUPLE, -5);
         question6.getEffetJaugeDroite().ajouteEffet(TypeJauge.FINANCE, +7);
         question6.getEffetJaugeDroite().ajouteEffet(TypeJauge.PEUPLE, -3);
-        question6.getConditions().add(new Condition(TypeJauge.FINANCE, ">", 10));
+        question6.getConditions().add(new Condition(TypeJauge.FINANCE, "<", 10));
         questions.add(question6);
         QuestionWithConditions question7 = new QuestionWithConditions("Prêtre", "J'aimerai qu'on nous considère en tant que tel", "Construire un monastère", "Ecouter sans rien faire");
         question7.getEffetJaugeGauche().ajouteEffet(TypeJauge.CLERGE, +5);
@@ -167,7 +167,6 @@ public class Jeu {
 
     private static Question getQuestionAleatoire() {
         List<Question> questionsAleatoires = new ArrayList<>();
-        int numQuestion = (int) (Math.random() * questions.size());
         for(Question question : questions)
         {
             if(question instanceof QuestionWithConditions)
@@ -207,13 +206,14 @@ public class Jeu {
             else
                 questionsAleatoires.add(question);
         }
+        int numQuestion = (int) (Math.random() * questionsAleatoires.size());
         return questionsAleatoires.get(numQuestion);
     }
 
     public static boolean finDuJeu(){
         Boolean bool = false;
         for(Entry<TypeJauge, Jauge> jauge : personnage.getJauges().entrySet()) {
-            if(jauge.getValue().getValeur() <= 50 || jauge.getValue().getValeur() >= 0){
+            if(jauge.getValue().getValeur() >= 50 || jauge.getValue().getValeur() <= 0){
                 bool = true;
             }
         }
